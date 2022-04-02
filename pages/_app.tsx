@@ -1,8 +1,17 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
+import MenuAppBar from '../components/MenuAppBar';
+import SideMenu from '../components/SideMenu';
+import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <RecoilRoot>
+      <MenuAppBar />
+      <SideMenu />
+      <Component {...pageProps} />
+    </RecoilRoot>
+  );
 }
 
-export default MyApp
+export default App;

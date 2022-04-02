@@ -1,0 +1,9 @@
+@import "../../styles/_mixins.scss";
+
+.wrapper_user_info_text {
+  line-height: 46px;
+  margin-right: 10px !important;
+  span {
+    font-weight: bold;
+  }
+}
