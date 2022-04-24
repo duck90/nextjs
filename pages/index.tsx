@@ -2,16 +2,16 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { userInfo } from '../stores/userInfo';
-
-import LoginPage from './login';
+import { userStore } from '../stores/UserStore';
 
 const NextPage: NextPage = () => {
-  const [userInfoState, setUserInfo] = useRecoilState(userInfo);
+  const [userInfoState, setUserInfo] = useRecoilState(userStore);
   const router = useRouter()
 
   useEffect(() => {
-    if (userInfoState.id === -1) {
+    if (router.pathname === '/') {
+      router.push('/login');
+    } else if (userInfoState.id === -1) {
       router.push('/login');
     } else {
       router.push('/home');
@@ -19,9 +19,7 @@ const NextPage: NextPage = () => {
   }, []);
 
   
-  return (
-    <LoginPage />
-  )
+  return null
 }
 
 export default NextPage

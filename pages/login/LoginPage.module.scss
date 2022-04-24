@@ -1,7 +1,9 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background-image: url('../../assets/images/login_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login_page_title {
+  font-size: 20px;
 }
