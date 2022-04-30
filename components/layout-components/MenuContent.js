@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from 'next/router';
+import { getCookie } from 'cookies-next';
+
 import { Menu } from "antd";
 import Icon from "../util-components/Icon";
 import navigationConfig from "../../configs/NavigationConfig";
@@ -22,16 +24,24 @@ const setDefaultOpen = (key) => {
 };
 
 const SideNavContent = (props) => {
-	const { routeInfo, hideGroupTitle } = props;
+	const { hideGroupTitle } = props;
   const router = useRouter();
+
+  useEffect(() => {
+    if (!getCookie('jwt')) {
+      router.replace('/login');
+    } else {
+      setDefaultOpen(router.pathname);
+    }
+  }, []);
 
   return (
     <Menu
       theme="light"
       mode="inline"
       style={{ height: "100%", borderRight: 0 }}
-      defaultSelectedKeys={[routeInfo?.key]}
-      defaultOpenKeys={setDefaultOpen(routeInfo?.key)}
+      defaultSelectedKeys={router.pathname.replace('/', '')}
+      defaultOpenKeys={setDefaultOpen(router.pathname)}
       className={hideGroupTitle ? "hide-group-title" : ""}
     >
       {navigationConfig.map((menu) =>

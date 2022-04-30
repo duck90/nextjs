@@ -7,7 +7,7 @@ interface NavStoreTypes {
 const navStore = atom<NavStoreTypes>({
   key: 'navCollapsed',
   default: {
-    isNavCollapsed: true,
+    isNavCollapsed: false,
   },
 });
 

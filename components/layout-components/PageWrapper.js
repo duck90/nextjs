@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { Layout } from "antd";
-import { MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined } from '@ant-design/icons';
-import Logo from './Logo';
-import NavNotification from './NavNotification';
-import NavProfile from './NavProfile';
 import { SIDE_NAV_COLLAPSED_WIDTH, SIDE_NAV_WIDTH } from '../../constants/ThemeConstant';
 
 import { navStore } from '../../stores/NavStore';
-import utils from '../../utils';
 
+import PageHeader from 'components/layout-components/PageHeader';
 import ignore from "../../constants/ignore_nav.json";
 
-const { Header } = Layout;
-
-export const HeaderNav = ({ children }) => {
+export const PageWrapper = ({ children, title }) => {
   const [navState] = useRecoilState(navStore);
   const router = useRouter();
 
@@ -32,10 +25,13 @@ export const HeaderNav = ({ children }) => {
   }
   
   return (
-    <div style={{ paddingLeft: getNavWidth() }}>
-      {children}
+    <div className="app-content" style={{ paddingLeft: getNavWidth() }}>
+      <div style={{ padding: '25px' }}>
+        { title && <PageHeader title={title} /> }
+        {children}
+      </div>
     </div>
   )
 }
 
-export default HeaderNav;
+export default PageWrapper;
