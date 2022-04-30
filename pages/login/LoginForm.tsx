@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import React from 'react';
 import { Button, Form, Input, Divider, Alert } from "antd";
 import { IdcardOutlined, LockOutlined } from '@ant-design/icons';
 import { motion } from "framer-motion"
 import PropTypes from 'prop-types';
 
-import { userStore } from '../../stores/UserStore';
+import styles from './LoginPage.module.scss';
 
-export const LoginForm = () => {
-	const router = useRouter();
-	const [userInfo, setUserInfo] = useRecoilState(userStore);
+interface LoginFormProps {
+	onLogin: Function;
+	failMessage?: string;
+}
 
-	const onLogin = (values: { id: string, password: any }) => {
-		setUserInfo({
-			id: 1,
-			userId: values.id,
-			nickname: 'TEST',
-			avator: 'default_thumb.jpg',
-		})
-		router.push('/home');
-	};
-	
+export const LoginForm = (props: LoginFormProps) => {
 	return (
 		<>
 			<motion.div 
@@ -37,7 +27,7 @@ export const LoginForm = () => {
 				layout="vertical" 
 				name="login-form" 
 				initialValues={{}}
-				onFinish={onLogin}
+				onFinish={(values) => props.onLogin(values)}
 			>
 				<Form.Item 
 					name="id" 
@@ -60,8 +50,9 @@ export const LoginForm = () => {
 				</Form.Item>
 				<Form.Item>
 					<Button type="primary" htmlType="submit" block>
-						Sign In
+						로그인
 					</Button>
+					{props.failMessage && <p className={styles.fail_message}>{props.failMessage}</p>}
 				</Form.Item>
 				{/* {
 					otherSignIn ? renderOtherSignIn : null

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { removeCookies } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { Menu, Dropdown, Avatar } from "antd";
@@ -42,12 +43,7 @@ export const NavProfile = () => {
   const [userInfo, setUserInfo] = useRecoilState(userStore);
 
   const signOut = () => {
-    setUserInfo({
-      id: -1,
-      userId: null,
-      nickname: null,
-      avator: null,
-    })
+    removeCookies('jwt')
     router.replace('/login')
   }
 
