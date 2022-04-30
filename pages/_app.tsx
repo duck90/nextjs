@@ -33,13 +33,11 @@ function App({ Component, pageProps }: AppProps) {
             <Layout className="app-container">
               <SideNav />
               <Layout className="app-layout">
-                <div className="app-content">
-                  <Content>
-                  <Suspense fallback={<Loading cover="content"/>}>
-                    <Component {...pageProps} />
-                  </Suspense>
-                  </Content>
-                </div>
+                <Content>
+                <Suspense fallback={<Loading cover="content"/>}>
+                  <Component {...pageProps} />
+                </Suspense>
+                </Content>
                 <Footer />
               </Layout>
             </Layout>
